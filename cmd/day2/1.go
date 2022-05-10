@@ -34,14 +34,12 @@ func main() {
 	distance := 0
 	for _, direction := range input {
 		q := strings.Split(direction, " ")
+		vector, _ := strconv.Atoi(q[1])
 		if q[0] == "forward" {
-			vector, _ := strconv.Atoi(q[1])
 			distance = distance + vector
 		} else if q[0] == "down" {
-			vector, _ := strconv.Atoi(q[1])
 			depth = depth + vector
 		} else if q[0] == "up" {
-			vector, _ := strconv.Atoi(q[1])
 			depth = depth - vector
 		}
 
