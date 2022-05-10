@@ -36,16 +36,13 @@ func main() {
 
 	for _, direction := range input {
 		q := strings.Split(direction, " ")
+		vector, _ := strconv.Atoi(q[1])
 		if q[0] == "forward" {
-			vector, _ := strconv.Atoi(q[1])
 			distance = distance + vector
-			delta := aim * vector
-			depth = depth + delta
+			depth = depth + (aim * vector)
 		} else if q[0] == "down" {
-			vector, _ := strconv.Atoi(q[1])
 			aim = aim + vector
 		} else if q[0] == "up" {
-			vector, _ := strconv.Atoi(q[1])
 			aim = aim - vector
 		}
 
