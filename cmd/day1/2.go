@@ -15,8 +15,8 @@ func check(e error) {
 
 func main() {
 	// String for filename
-	// s := "/home/tdeburca/git/AoC2022-go/cmd/day1/testfile.txt"
-	s := "/home/tdeburca/git/AoC2022-go/cmd/day1/input.txt"
+	// s := "/home/tdeburca/git/AoC2021-go/cmd/day1/testfile.txt"
+	s := "/home/tdeburca/git/AoC2021-go/cmd/day1/input.txt"
 
 	// assign filehandler to f.
 	f, err := os.Open(s)
