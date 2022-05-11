@@ -14,10 +14,10 @@ func check(e error) {
 }
 
 func main() {
-	s := "/home/tdeburca/git/AoC2021-go/cmd/day3/testfile.txt"
-	// s := "/home/tdeburca/git/AoC2021-go/cmd/day3/input.txt"
+	// s := "/home/tdeburca/git/AoC2021-go/cmd/day3/testfile.txt"
+	s := "/home/tdeburca/git/AoC2021-go/cmd/day3/input.txt"
 	readings := getReadings(s)
-	fmt.Println(getOxegenGeneratorRating(readings))
+	fmt.Println(getOxegenGeneratorRating(readings) * getC02ScrubberRating(readings))
 
 }
 
@@ -44,7 +44,23 @@ func getOxegenGeneratorRating(readings []string) int64 {
 			break
 		}
 	}
-	//should never happen
+	// Less efficient than placing it where the break is, but causes the compiler to barf.
+	out, _ := strconv.ParseInt(readings[0], 2, 64)
+	return out
+}
+
+func getC02ScrubberRating(readings []string) int64 {
+	// len(string) != number of runes in string. Converting it to a list of runes fixes this.
+	// not required here, but going for 'correct'.
+	bit_width := len([]rune(readings[0]))
+	for digitIndex := 0; digitIndex <= bit_width; digitIndex++ {
+		commonDigit := getUncommonDigit(digitIndex, readings)
+		readings = getMatchingRecords(digitIndex, commonDigit, readings)
+		if len(readings) == 1 {
+			break
+		}
+	}
+	// Less efficient than placing it where the break is, but causes the compiler to barf.
 	out, _ := strconv.ParseInt(readings[0], 2, 64)
 	return out
 }
@@ -78,5 +94,25 @@ func getCommonDigit(position int, l []string) int {
 		return 1
 	} else {
 		return 0
+	}
+}
+
+func getUncommonDigit(position int, l []string) int {
+	ones := 0
+	zeroes := 0
+	for _, record := range l {
+		if record[position] == '1' {
+			ones++
+		} else if record[position] == '0' {
+			zeroes++
+		} else {
+			fmt.Print(record, position, "error")
+			break
+		}
+	}
+	if ones >= zeroes {
+		return 0
+	} else {
+		return 1
 	}
 }
