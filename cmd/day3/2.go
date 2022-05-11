@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 )
 
 func check(e error) {
@@ -16,9 +17,8 @@ func main() {
 	s := "/home/tdeburca/git/AoC2021-go/cmd/day3/testfile.txt"
 	// s := "/home/tdeburca/git/AoC2021-go/cmd/day3/input.txt"
 	readings := getReadings(s)
-	getCommonDigit(0, readings)
+	fmt.Println(getOxegenGeneratorRating(readings))
 
-	fmt.Println(getMatchingRecords(1, 1, readings))
 }
 
 func getReadings(filename string) []string {
@@ -33,12 +33,30 @@ func getReadings(filename string) []string {
 	return readings
 }
 
-//func get_oxegen_generator_rating(readings []string)
+func getOxegenGeneratorRating(readings []string) int64 {
+	// len(string) != number of runes in string. Converting it to a list of runes fixes this.
+	// not required here, but going for 'correct'.
+	bit_width := len([]rune(readings[0]))
+	for digitIndex := 0; digitIndex <= bit_width; digitIndex++ {
+		commonDigit := getCommonDigit(digitIndex, readings)
+		readings = getMatchingRecords(digitIndex, commonDigit, readings)
+		if len(readings) == 1 {
+			break
+		}
+	}
+	//should never happen
+	out, _ := strconv.ParseInt(readings[0], 2, 64)
+	return out
+}
 
 func getMatchingRecords(position int, value int, l []string) []string {
 	var output []string
 	for _, record := range l {
-		fmt.Print(record, position, record[position], value)
+		// record[position] returns a byte, converted to string, converted to int.
+		t, _ := strconv.Atoi(string(record[position]))
+		if t == value {
+			output = append(output, record)
+		}
 	}
 	return output
 }
