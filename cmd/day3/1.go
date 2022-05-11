@@ -59,4 +59,5 @@ func main() {
 	g, _ := strconv.ParseInt(gamma, 2, 64)
 	e, _ := strconv.ParseInt(epsilon, 2, 64)
 	fmt.Println(g * e)
+
 }
