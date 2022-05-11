@@ -45,7 +45,6 @@ func getOxegenGeneratorRating(readings []string) int64 {
 		}
 	}
 	// Less efficient than placing it where the break is, but causes the compiler to barf.
-	fmt.Println(readings[0])
 	out, _ := strconv.ParseInt(readings[0], 2, 64)
 	return out
 }
@@ -62,7 +61,6 @@ func getC02ScrubberRating(readings []string) int64 {
 		}
 	}
 	// Less efficient than placing it where the break is, but causes the compiler to barf.
-	fmt.Println(readings[0])
 	out, _ := strconv.ParseInt(readings[0], 2, 64)
 	return out
 }
