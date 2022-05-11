@@ -1,0 +1,13 @@
+	// Interate over a string by rune. 
+	for _, v := range input {
+		for i := 1; i < len(v); i++ {
+			fmt.Println(v[i-1 : i])
+		}
+	}
+
+	// Get the type of var v
+	fmt.Printf("%T", v)
+
+	// len(string) != number of runes in string. Converting it to a list of runes fixes this.
+	bit_width := len([]rune(readings[0]))
+
